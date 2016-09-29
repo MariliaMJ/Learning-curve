@@ -1,0 +1,276 @@
+/*******************************************************************/
+/**                                                               **/
+/**  MAC0110 - Introducao a Computacao - IME - 2013               **/    
+/**  Nome do aluno :Marília Muraro Janizelli                      **/
+/**  Numero USP : 7275730              Curso :Aplicada            **/
+/**  Exercicio-Programa 04                                        **/
+/**                                                               **/
+/*******************************************************************/
+#include <stdio.h>
+#include <stdlib.h> /* para usar a funcao exit */
+
+/* numero de linhas e de colunas das matrizes */
+#define MAXL 52
+#define MAXC 82
+
+/* para usar na matriz campo */
+#define MINA    -1
+#define MOLDURA -2
+
+/* para usar na matriz marca */
+#define LIVRE   'L'
+#define MINADA  'M'
+#define FECHADA 'F'
+
+/* para usar na funcao processa_escolha */
+#define GANHOU   1
+#define PERDEU   2
+#define CONTINUA 3
+
+/*  prototipos da funcoes  */
+void inicializa_campo_moldura(int campo[][MAXC], int nlin, int ncol);
+void le_info_jogo(int campo[][MAXC], int *lin, int *col, int *m);
+int conta_minas_vizinhas(int campo[][MAXC], int l, int c);
+void completa_campo_jogo(int campo[][MAXC], int nlin, int ncol);
+void inicializa_marca_moldura(char marca[][MAXC], int nlin, int ncol);
+void exibe_campo_jogo(int campo[][MAXC], char marca[][MAXC], int nlin, int ncol);
+void abre_vizinhos(int campo[][MAXC], char marca[][MAXC], int nlin, int ncol);
+int processa_escolha(int campo[][MAXC], char marca[][MAXC], int nlin, int ncol,
+		                                       int l, int c, char tipo);
+
+
+int main()
+{
+  int campo[MAXL][MAXC];
+  char marca[MAXL][MAXC];
+  int resultado, m, lin, col, nlin, ncol, l, c, tipo, minas, i=j=1;
+  /* declare outras variaveis */
+
+  /* faz as inicializacoes */
+  le_info_jogo(campo, &lin, &col,&m);
+
+  printf("\nUma escolha deve ser uma tripla (l, c, tipo), onde\n");
+  printf("\nl = indice de linha e c = indice de coluna de uma posicao da matriz campo\n");
+  printf("\ne tipo = L ou M, indicando uma posicao livre ou minada.\n");
+
+
+
+  resultado = CONTINUA;
+  
+  le_info_jogo(campo, &nlin, &ncol, &minas);
+
+
+  while (resultado == CONTINUA)  {
+
+    /* exibe o campo */
+    exibe_campo_jogo( campo,  marca,  nlin,  ncol);
+    
+    
+        while (campo[i][j]==FECHADO)
+        {   /* pede uma escolha ate obter uma que seja valida */
+            printf ("Digite uma escolha:");
+             /* processa a escolha */
+            processa_escolha(campo, marca, nlin,  ncol, l, c, tipo);
+            
+                 if (marca[i][j] == MINADA)
+                    
+                    printf("BOOOOM!! Voce pisou na mina e perdeu o jogo!!!");
+                 
+                 else
+                    if (marca[i][j]== LIVRE)
+                 {
+                     conta_minas_vizinhas conta_minas_vizinhas(campo, l, c);
+
+                 }
+
+        }    
+    
+    
+   
+    
+    
+
+
+
+  }
+
+  /* mensagens de finalizacao */
+
+  /* exiba os conteudos de todas as posicoes do campo de jogo */
+
+  return 0;
+}
+
+
+/*  definicoes das funcoes  */
+
+/*  funcao  inicializa_campo_moldura  */
+/*  Zera a matriz campo que tem nlin linhas e ncol colunas e
+    cria uma moldura com valor MOLDURA.
+*/
+void inicializa_campo_moldura(int campo[][MAXC], int nlin, int ncol)
+{
+    int i, j;
+    for (j = 1; j <= ncol + 1; j++)
+    {
+        campo[0][j] = MOLDURA;
+        campo[nlin + 1][j] = MOLDURA;
+    }
+    for (i = 1; i <= nlin + 1; i++)
+    {
+        campo[i][0] = MOLDURA;
+        campo[i][ncol + 1] = MOLDURA;
+    }
+
+}
+
+
+/*  funcao conta_minas_vizinhas  */
+/*  Devolve a quantidade de minas vizinhas a posicao (l,c)
+    da matriz campo.
+*/
+int conta_minas_vizinhas(int campo[][MAXC], int l, int c)
+{
+
+   int espacos=0, *lin, *col;
+
+   for(l=1; l<*lin; l++)
+      for(c=1; c<*col; c++)
+         if (campo[l][c] != 1)
+            espacos++;
+   return espacos;
+}
+
+
+
+
+/*  funcao completa_campo_jogo  */
+/*  Em cada posicao sem mina da matriz campo, armazena a quantidade de minas
+    vizinhas a essa posicao.
+    A matriz campo tem nlin linhas e ncol colunas.
+*/
+void completa_campo_jogo(int campo[][MAXC], int nlin, int ncol)
+{
+  /* FAZER */
+}
+
+
+/*  funcao inicializa_marca_moldura  */
+/*  Inicializa a matriz marca com FECHADA em cada posicao de jogo e
+    com ABERTA em cada posicao da moldura.
+    A matriz marca tem nlin linhas e ncol colunas.
+*/
+void inicializa_marca_moldura(char marca[][MAXC], int nlin, int ncol)
+{
+  /* FAZER */
+}
+
+
+/*  funcao abre_vizinhos  */
+/*  Abre as casas vizinhas de posicoes que foram abertas e  que nao tem
+    minas na vizinhanca, repetidamente, ate que nao haja mais alteracoes.
+    As matrizes campo e  marca tem nlin linhas e ncol colunas.
+*/
+void abre_vizinhos(int campo[][MAXC], char marca[][MAXC], int nlin, int ncol)
+{
+  /* FAZER */
+}
+
+
+/*  funcao processa_escolha  */
+/*  Processa a escolha (l, c, tipo), atualizando a matriz marca e
+    devolve se o jogador GANHOU ou PERDEU ou se o jogo CONTINUA.
+    As matrizes campo e  marca tem nlin linhas e ncol colunas.
+    Obs.: Se o jogador perdeu, atualize a matriz marca para
+    que ela nao tenha nenhuma posicao fechada.
+*/
+int processa_escolha(int campo[][MAXC], char marca[][MAXC], int nlin, int ncol,
+		                                       int l, int c, char tipo)
+{
+  /* FAZER */
+}
+
+
+/*  funcao le_info_jogo  */
+/*  Le os dados para um jogo, inicializa a matriz campo e sua
+    moldura; define na matriz campo as posicoes das minas e
+    atribui o numero de linhas e de colunas do campo de jogo
+    para *lin e *col, e o numero de minas para *m.
+*/
+void le_info_jogo(int campo[][MAXC], int *lin, int *col, int *m)
+{
+  FILE *entrada;
+  int minas, linhas, colunas, indl, indc, i;
+  char nomearq[80]; /* armazena nome do arquivo com os dados de entrada */
+
+  printf("Digite o nome do arquivo de entrada: ");
+  scanf("%s", nomearq);
+
+  entrada = fopen(nomearq, "r");
+  if (entrada == NULL)  {
+    printf("Arquivo %s nao pode ser aberto\n", nomearq);
+    exit(1);
+  }
+
+  fscanf(entrada, "%d %d %d", &linhas, &colunas, &minas);
+
+  inicializa_campo_moldura(campo, linhas, colunas);
+
+  for (i = 1; i <= minas; i++)  {
+     fscanf(entrada, "%d %d", &indl, &indc);
+     campo[indl][indc] = MINA;
+  }
+
+  fclose(entrada);
+
+  *lin = linhas;
+  *col = colunas;
+  *m = minas;
+}
+
+
+/*  funcao exibe_campo_jogo  */
+/*  Escreve na tela a situacao do campo de jogo representada pela matriz
+    campo e de acordo com as marcacoes na matriz marca.
+*/
+void exibe_campo_jogo(int campo[][MAXC], char marca[][MAXC], int nlin, int ncol)
+{
+  int i, j;
+
+  /* impressao da borda superior */
+  printf("     ");
+  for (i = 1; i <= ncol; i++)
+     printf("%2d ", i);
+  printf("\n");
+
+  printf("    +");
+  for (i = 1; i <= ncol; i++)
+     printf("---");
+  printf("+\n");
+
+  /* impressao da matriz, linha por linha, incluindo as bordas lateriais */
+  for (i = 1; i <= nlin; i++)  {
+     printf("%3d |", i);
+     for (j = 1; j <= ncol; j++)  {
+        if (marca[i][j] == FECHADA)
+          printf(" . ");
+        else  {
+          if (marca[i][j] == LIVRE)
+            printf("%2d ", campo[i][j]);
+          else
+            printf("%2c ", MINADA);
+        }
+     }
+     printf("|%3d\n", i);
+  }
+
+  /* impressao da borda inferior */
+  printf("    +");
+  for (i = 1; i <= ncol; i++)
+     printf("---");
+  printf("+\n");
+  printf("     ");
+  for (i = 1; i <= ncol; i++)
+     printf("%2d ", i);
+  printf("\n\n");
+}
