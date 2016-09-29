@@ -1,0 +1,144 @@
+#include <stdio.h>
+#define pi 3.14159265359
+#define g 9.8
+
+double seno (double x, int k);
+double cosseno (double x, int k);
+double altura (double v0, double theta, int k);
+double alcance (double v0, double theta, int k);
+double trajetoria (double x, double a, double b);
+void grau_radiano (double *theta);
+void desenho (double s, double a, double b);
+
+int main ()
+{
+    int k, jogada=1;/*conta o número da jogada*/;
+    double x, v0, theta, a, b, D, s, erro/*distância do inimigo menos a alcançada*/;
+    printf("Configuracoes\n");
+    printf("-------------\n");
+    printf("\n");
+    printf("Bem vindo ao mais inovador jogo de tiro em primeira pessoa do milenio!\n");
+    printf("Tome um tempo para configurar o jogo.\n");
+    printf("Digite a distancia do seu inimigo em metros:");
+    scanf("%lf",&D );
+    printf("Digite ate que ordem deseja calcular as series de funcoes trigonometricas:");
+    scanf("%d", &k);
+    printf("\n\n");
+    printf("SUPER SHOOT-TO-DEATH YOUR ARCHENEMY\n");
+    printf("-----------------------------------\n");
+    printf("Voce esta numa batalha mortal contra um inimigo que vai atirar em voce.\n");
+    printf("Ele tem um sistema que consegue acertar voce sem erro nenhum, mas os\n");
+    printf("calculos dele levam tempo. Use esse tempo para acerta-lo antes de morrer!\n");
+    printf("Seu inimigo esta a %lf m de distancia, voce tem tres chances. Boa sorte!\n",D);
+    printf("\n");
+    printf("*Jogada 1 de 3\n");
+    printf("\n");
+    printf("Digite a velocidade inicial em metros por segundo:\n");
+    scanf("%lf", &v0);
+    printf("Digite o angulo entre 0 e 90 graus com a horizontal:\n");
+    scanf("%lf",&x);
+    
+    grau_radiano(&x);
+    altura (v0, &x, k);
+    alcance (v0, &x, k);
+    
+    erro = alcance (v0, &x, k) - D;
+    
+    if (alcance (v0, &x, k) < D)
+            erro = -1*erro;
+            
+    a = sin (&x)/ cosseno(&x);
+    b = g/ (2*v0*v0)*cosseno(&x)*cosseno(&x);       
+
+
+    printf("Dados de seu lancamento:\n");
+    printf("-Velocidade:%lf m/s\n",v0 );
+    printf("-Angulo:%lf rad\n", grau_radiano(&x));
+    printf("-Alcance:%lf m\n", alcance (v0, &x, k));
+    printf("-Altura:%lf m\n", altura (v0, &x, k));
+    printf("-Erro:%lf m\n", erro);
+    
+    while (alcance (v0, &x, k)!= D&& jogada <=3)/*REVER*/
+            if (alcance (v0, &x, k)>= D-s/2||alcance (v0, &x, k)<= D+s/2)
+                printf("Aeee! Voce acertou e foi vitorioso!!! \o/ \n");
+            /*Calcule os coeﬁcientes da trajetória a(v0
+    , θ) e b(v0
+    , θ) através
+    das Equações (8).
+    – Imprima gráﬁco do lançamento;
+    – Determine se o jogador acertou ou errou o inimigo dentro de
+    uma tolerância ε = s/2 dada em função resolução s do gráﬁco*/
+    
+   
+
+    return 0;
+}
+
+
+double cosseno (double x, int k)
+{     
+  
+  double cos = 1, t=1;
+  int i;
+  
+  grau_radiano(&x);  
+  for (i=2; i<= k; i+=2)
+  {
+      t = -t * x*x/((double) i * (i - 1)) ;      
+      cos = cos + t;
+  }
+  
+  return cos;
+}
+
+
+double seno (double x, int k)
+{     
+  grau_radiano(&x);
+  double sin = x, t=x;
+  int i;
+  
+  for (i=3; i<= k; i+=2)
+  {
+      t = -t * x*x/((double) i * (i - 1)) ;      
+      sin = sin + t;
+  }
+  
+  return sin;
+}
+
+/*Trajetória*/
+double trajetoria (double x, double a, double b)
+{
+    double y;   
+    
+    y = a*x - b*x*x;
+    
+    return y;
+}
+
+
+/*alcance*/
+double alcance (double v0, double theta, int k);
+{
+    double A;
+    
+    A= v0*v0*seno(2*&x)/g;
+    return A;
+}
+
+/*altura*/
+double altura (double v0, double theta, int k);
+{
+    double H;
+    H = v0*v0*seno(&x)*seno(&x)/2*g;
+    return H;
+}
+
+/*rad*/
+void grau_radiano(double *theta)
+{
+    double rad;
+    rad = (pi/180)*(*theta);
+    *theta = rad;
+}
