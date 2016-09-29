@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
+/*Função MARCAR*/
+
+int main ()
+{
+    int matrix[10][10], i, j;
+    for (i=0; i<10; i++)
+   {
+       for( j=0; j<10; j++)
+       {
+            matrix[i][j]=  abs(i-4)+ abs (j-6)+1;/*taxicab algorithm*/
+            printf("%3d ",matrix[i][j]);/*prints the matrix*/
+
+       }
+        printf("\n");
+   }
+
+return 0;
+}
