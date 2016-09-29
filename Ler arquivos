@@ -1,0 +1,21 @@
+#include <stdio.h>
+//
+// ler arquivo de disco e gravar uma cópia no disco
+//
+void main(){
+char car;
+FILE *arqEntrada;
+FILE *arqSaida; // apontador p/ arquivo de saida
+arqEntrada=fopen("Aentra.txt", "r"); // abrir p/ ler
+arqSaida=fopen("Asai.txt", "w"); // abrir p/ gravar
+if(arqEntrada==NULL)printf("Arquivo Aentra.txt nao existe");
+else{
+  while( !feof(arqEntrada) ){
+             fscanf(arqEntrada,"%c", &car);
+     printf("%c",car);
+             fprintf(arqSaida, "%c", car);  // grava
+     }// fim while  !feof
+}// fim else
+fclose(arqEntrada); // fecha
+fclose(arqSaida); // fecha
+}//fim ma
