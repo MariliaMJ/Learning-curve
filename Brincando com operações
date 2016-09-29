@@ -1,0 +1,169 @@
+/*******************************************************************/
+/**                                                               **/
+/**  MAC0110 - Introducao a Computacao - IME - 2013               **/
+/**  Nome do aluno :Marília Muraro Janizelli                      **/
+/**  Numero USP :7275730               Curso :Matemática aplicada **/
+/**  Exercicio-Programa 02                                        **/
+/**                                                               **/
+/*******************************************************************/
+#include<stdio.h>
+int main()
+{
+    
+    int a_num = 0, a_den = 1;/*variáveis que armazenam o numerador e denominador do primeiro racional*/
+    
+    int b_num = 0, b_den = 1;/*variáveis que armazenam o numerador e denominador do segundo racional*/  
+    
+    int oper = 0; /*Variável que armazena as operações a serem realizadas*/
+    
+    printf("\nDigite um inteiro entre 1 e 4 (1-adicao, 2-subtracao, 3-multiplicacao, 4-divisao para selecionar uma operacao aritmetica,ou digite 0 para finalizar:\n");  
+    scanf("%d",&oper);
+    printf("Digite dois numeros racionais (dois pares de numeros inteiros):\n");
+    scanf("%d %d %d %d",&a_num, &a_den, b_num, b_den);
+    if(a_den==0||b_den==0)
+    {   
+       printf(" ERRO -> Um dos numeros digitados nao e' racional.\n");
+    }   
+    
+    int res_num=0, res_den=1; /*variáveis que armazenam os numerador e denominador do resulatado final*/
+    
+    if(oper == 0)/*Checar se a operação de para foi requisitada*/
+    {
+      printf("Parar.\n");      
+    }  
+    
+    else if (oper == 1)/*checando se a operação é de adição*/
+    {
+         int raw_num=0, raw_den=1; /*Expressam temporariamente o numerador e denominador da operação*/
+         
+         raw_num = a_num * b_den + b_num * a_den; /*Algoritmo algébrico para adição de frações: a/b+c/d= ad+bc/bd*/
+         raw_den = a_den * b_den;
+         /*Agora vamos calcular a fração reduzida, aachando o mdc entre numerador e denominador*/
+         
+         int tmp_num = raw_num, tmp_den = raw_den;
+         int mdc = 1;
+         
+         while(tmp_den!=0)
+        {
+            mdc = tmp_den;
+            tmp_den=tmp_num % mdc;
+            tmp_num = mdc;
+        }
+        mdc = tmp_num;
+        
+        /*Fração reduzida*/
+        
+        res_den = raw_den/mdc;
+        res_num = raw_num/mdc;
+        
+        /*vemos se o denominador <0, se sim multiplicamos ambos num e denom por -1 para obter a forma desejada*/
+        
+        if(res_den < 0)
+        {
+          res_num = res_num * (-1);
+          res_den = res_den * (-1);       
+        }
+        
+        printf(" Expressao calculada: %d/%d + %d/%d = %d/%d\n",a_num,a_den, b_num, b_den, res_num, res_den);
+    }           
+  
+    else if(oper == 2) /*operação de subtração*/
+    {
+        int raw_num=0, raw_den=1;
+        
+        raw_num= a_num * b_den - b_num * a_den;
+        raw_den= a_den * b_den;
+        
+        /*Da mesma forma, calculamos a fração reduzida, usando o mdc*/
+        
+        int tmp_num=raw_num, tmp_den=raw_den;
+        int mdc=1;
+        
+        while(tmp_den!=0)
+        {
+            mdc=tmp_den;
+            tmp_den=tmp_num % mdc;
+            tmp_num = mdc;
+        }
+        mdc = tmp_num;
+        
+        /*fração reduzida*/
+        
+        res_den = raw_den/mdc;
+        res_num = raw_num/mdc; 
+         
+         if(res_den < 0) /*se os denominadores são negativos...*/
+        {
+            res_num = res_num * (-1);
+            res_den = res_den * (-1);
+        }
+        printf(" Expressao calculada: %d/%d - %d/%d = %d/%d\n",a_num,a_den, b_num, b_den, res_num, res_den);     
+     }
+     
+     else if(oper == 3)    
+     {
+          int raw_num=0, raw_den=1;
+          
+          raw_num= a_num * b_num; /*expressão que calcula multiplicação de frações*/
+          raw_den= a_den * b_den; 
+          /*Fração reduzida*/
+                    
+           int tmp_num=raw_num, tmp_den=raw_den;
+           int mdc = 1;     
+        
+        while(tmp_den!=0)
+        {
+           mdc=tmp_den;
+           tmp_den=tmp_num % mdc;
+           tmp_num = mdc;
+        }
+        mdc=tmp_num;        
+        /*Fração reduzida*/  
+              
+        res_den = raw_den/mdc;
+        res_num = raw_num/mdc;
+        
+         if(res_den < 0) /*Checando denominadores...*/
+        {
+            res_num = res_num * (-1);
+            res_den = res_den * (-1);
+        }              
+     printf(" Expressao calculada: %d/%d - %d/%d = %d/%d\n",a_num,a_den, b_num, b_den, res_num, res_den);
+     }     
+     else if(oper == 4)
+     {
+          int raw_num=0, raw_den=1;
+          
+          if(b_num==0)/*Divisão por zero!!*/
+             printf("ERRO -> Divisao por zero.");
+          
+          raw_num= a_num * b_den;
+          raw_den= a_den * b_num;
+         /*Fração redzida*/
+         
+         int tmp_num=raw_num, tmp_den=raw_den;
+         int mdc = 1;
+        
+         while(tmp_den!=0)
+         {
+            mdc = tmp_den;
+            tmp_den = tmp_num % mdc;
+            tmp_num = mdc;
+         }
+       mdc = tmp_num;
+       /*Fração reduzida*/
+       res_den = raw_den/mdc;
+       res_num = raw_num/mdc;  
+       
+       if(res_den < 0) /*Checando denominadores...*/
+        {
+            res_num = res_num * (-1);
+            res_den = res_den * (-1);
+        }
+        printf("Expressao calculada: %d/%d / %d/%d = %d/%d",a_num,a_den, b_num, b_den, res_num, res_den);
+     }     
+     return 0;
+}  
+ 
+ 
+    
