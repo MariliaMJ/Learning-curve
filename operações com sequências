@@ -1,0 +1,35 @@
+#include <stdio.h>
+int main ()
+{
+    int num,soma,max=-10000,min=10000,prod;
+
+    printf("Digite uma sequencia de numeros seguida de ZERO:");
+    printf("\nDigite o primeiro numero:");
+    scanf("%d",&num);
+
+    while (num!=0)
+    {
+        soma=soma+num;
+        prod=prod*num;
+	
+		
+		if(num>max)
+	        max=num;
+	
+        if(num<min)
+	        min=num;
+	        
+	       	
+	    printf("Digite o proximo numero:");
+        scanf("%d",&num);	
+	
+	  
+    }
+    
+    printf("A soma da sequencia eh:%d\n",soma);
+    printf("O produto da sequencia eh:%d\n",prod);
+    printf("O maximo da sequencia eh:%d\n",max);
+    printf("O minimo da sequencia eh:%d\n",min);
+    
+return 0;
+}
