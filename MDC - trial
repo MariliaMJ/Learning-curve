@@ -1,0 +1,27 @@
+#include <stdio.h>
+int main (){
+	int a, b, temp, numer, denom;
+	printf("Digite um numero racional (dois inteiros sendo o segundo diferente de zero) :");
+	scanf("%d %d",&a ,&b);
+	if(b<0)	
+	   b=b*-1;
+	if(a<0)
+	   a=a*-1;
+		
+	numer=a;
+	denom=b;
+		  
+	while (b != 0){  //Calcula o mdc, algoritmo de Euclides.
+       temp = b;
+       b = a % temp;
+       a = temp;
+   }
+   printf ("mdc(%d,%d) =%d\n", numer,denom,a);
+  
+   if(a==1)
+     printf("O numero racional %d / %d nao e' irredutivel\n",numer,denom);
+     else 
+      printf("O numero racional irredutivel equivalente e' %d / %d\n",numer / a, denom / a);//Se o núm. é irredutível, dividimos num e denom pelo mdc}
+ system("pause");
+ return 0;        
+}
