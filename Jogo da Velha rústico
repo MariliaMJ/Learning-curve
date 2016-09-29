@@ -1,0 +1,507 @@
+#include<stdio.h>
+
+int main()
+{
+	int jogador=0, ganhador_1=0, ganhador_2=0, tabuleiro, jogada,i, ganhador_final=0;
+	int p_11=0,
+		p_12=0,
+		p_13=0,
+		p_21=0,
+		p_22=0,
+		p_23=0,
+		p_31=0,
+		p_32=0,
+		p_33=0;
+	int aux1=0,aux2=0,aux3=0,aux4=0,aux5=0,aux6=0,aux7=0,aux8=0,aux9=0;
+
+	printf("Jogo da velha Dancarina");
+	printf("\nTabuleiro inicial:");
+	scanf("%d",&tabuleiro);
+
+
+		p_11= (tabuleiro/100000000)%10;
+		p_12= (tabuleiro/10000000)%10;
+		p_13= (tabuleiro/1000000)%10;
+		p_21= (tabuleiro/100000)%10;
+		p_22= (tabuleiro/10000)%10;
+		p_23= (tabuleiro/1000)%10;
+		p_31= (tabuleiro/100)%10;
+		p_32= (tabuleiro/10)%10;
+		p_33= tabuleiro%10;
+
+ 	printf("\n\n");
+ 	printf(" %d | %d | %d\n", p_11, p_12, p_13);
+ 	printf("---+---+---\n");
+ 	printf(" %d | %d | %d\n", p_21, p_22, p_23);
+ 	printf("---+---+---\n");
+ 	printf(" %d | %d | %d\n", p_31, p_32, p_33);
+
+	ganhador_final= ganhador_1 + ganhador_2;  /*para armazenar um ganhador ou dois ganhadores, se ganhador_final é 3,então os dois ganharam*/
+
+    /*ANÁLISE DE GANHADORES DA PRIMEIRA RODADA ESPECIAL*/
+
+            if(p_11==1 && p_22==1 && p_33==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a diagonal principal!\n");
+			}
+
+			if(p_11==1 && p_21==1 && p_31==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a 1a coluna!\n");
+			}
+
+			if(p_12==1 && p_22==1 && p_32==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a 2a coluna!\n");
+			}
+
+			if(p_13==1 && p_23==1 && p_33==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a 3a coluna!\n");
+			}
+
+			if(p_11==1 && p_12==1 && p_13==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a 1a linha!\n");
+			}
+
+			if(p_21==1 && p_22==1 && p_23==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a 2a linha!\n");
+			}
+
+			if(p_31==1 && p_32==1 && p_33==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a 3a linha!\n");
+			}
+
+			if(p_13==1 && p_22==1 && p_31==1)
+		 	{
+		 		ganhador_1=1;
+		 		printf("\nJogador 1 completou a diagonal secundaria!\n");
+			}
+
+			if(p_11==2 && p_22==2 && p_33==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a diagonal principal!\n");
+			}
+
+			if(p_11==2 && p_21==2 && p_31==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a 1a coluna!\n");
+			}
+
+			if(p_12==2 && p_22==2 && p_32==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a 2a coluna!\n");
+			}
+
+			if(p_13==2 && p_23==2 && p_33==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a 3a coluna!\n");
+			}
+
+			if(p_11==2 && p_12==2 && p_13==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a 1a linha!\n");
+			}
+
+			if(p_21==2 && p_22==2 && p_23==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a 2a linha!\n");
+			}
+
+			if(p_31==2 && p_32==2 && p_33==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a 3a linha!\n");
+			}
+
+			if(p_13==2 && p_22==2 && p_31==2)
+		 	{
+		 		ganhador_2=2;
+		 		printf("\nJogador 2 completou a diagonal secundaria!\n");
+			}
+
+            if(ganhador_final==3)
+                    printf("Os dois ganharam!");
+            else
+                if(ganhador_final==0 && p_11!=0 &&p_12!=0&&p_13!=0&&p_21!=0&&p_22!=0&&p_23!=0&&p_31!=0&&p_32!=0&&p_33!=0)
+                    printf("\nDeu empate\n");
+
+	/*SE O TABULEIRO NÃO ESTÁ CHEIO E NÃO TEM-SE GANHADOR, O JOGO CONTINUA*/
+            else if(ganhador_final==0)
+
+                for (i=1; i<9 && ganhador_final==0;i++)
+                {
+                    jogador= (i+1)%2 + 1;
+                    printf("(Jogador %d) Proxima jogada:", jogador);
+
+                    scanf("%d", &jogada);
+
+                    if(jogada==11)
+                        p_11=jogador;
+                    else
+                        if(jogada==12)
+                            p_12=jogador;
+                    else
+                        if(jogada==13)
+                            p_13=jogador;
+                    else
+                        if(jogada==21)
+                            p_21=jogador;
+                    else
+                        if(jogada==22)
+                            p_22=jogador;
+                    else
+                        if(jogada==23)
+                            p_23=jogador;
+                    else
+                        if(jogada==31)
+                            p_31=jogador;
+                    else
+                        if(jogada==32)
+                            p_32=jogador;
+                    else
+                        if(jogada==33)
+                            p_33=jogador;
+		/*SE jogada = 0=> GIRO
+		SE jogada 1,..8 => delizamento*/
+
+                    else
+                        if(jogada==0)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_23;
+                           aux6=p_31;
+                           aux7=p_32;
+                           aux8=p_33;
+                           p_11=aux4;
+                           p_12=aux1;
+                           p_13=aux2;
+                           p_21=aux6;
+                           p_23=aux3;
+                           p_31=aux7;
+                           p_32=aux8;
+                           p_33=aux5;
+                        }
+                    else
+                        if(jogada==1)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux9;
+                           p_12=aux1;
+                           p_13=aux2;
+                           p_21=aux3;
+                           p_22=aux4;
+                           p_23=aux5;
+                           p_31=aux6;
+                           p_32=aux7;
+                           p_33=aux8;
+                        }
+                     else
+                        if(jogada==2)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux8;
+                           p_12=aux9;
+                           p_13=aux1;
+                           p_21=aux2;
+                           p_22=aux3;
+                           p_23=aux4;
+                           p_31=aux5;
+                           p_32=aux6;
+                           p_33=aux7;
+                        }
+                     else
+                        if(jogada==3)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux7;
+                           p_12=aux8;
+                           p_13=aux9;
+                           p_21=aux1;
+                           p_22=aux2;
+                           p_23=aux3;
+                           p_31=aux4;
+                           p_32=aux5;
+                           p_33=aux6;
+                        }
+                      else
+                        if(jogada==4)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux6;
+                           p_12=aux7;
+                           p_13=aux8;
+                           p_21=aux9;
+                           p_22=aux1;
+                           p_23=aux2;
+                           p_31=aux3;
+                           p_32=aux4;
+                           p_33=aux5;
+                        }
+                      else
+                        if(jogada==5)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux5;
+                           p_12=aux6;
+                           p_13=aux7;
+                           p_21=aux8;
+                           p_22=aux9;
+                           p_23=aux1;
+                           p_31=aux2;
+                           p_32=aux3;
+                           p_33=aux4;
+                        }
+                      else
+                        if(jogada==6)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux4;
+                           p_12=aux5;
+                           p_13=aux6;
+                           p_21=aux7;
+                           p_22=aux8;
+                           p_23=aux9;
+                           p_31=aux1;
+                           p_32=aux2;
+                           p_33=aux3;
+                        }
+                     else
+                        if(jogada==7)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux3;
+                           p_12=aux2;
+                           p_13=aux1;
+                           p_21=aux9;
+                           p_22=aux8;
+                           p_23=aux7;
+                           p_31=aux6;
+                           p_32=aux5;
+                           p_33=aux4;
+                        }
+                     else
+                        if(jogada==8)
+                        {
+                           aux1=p_11;
+                           aux2=p_12;
+                           aux3=p_13;
+                           aux4=p_21;
+                           aux5=p_22;
+                           aux6=p_23;
+                           aux7=p_31;
+                           aux8=p_32;
+                           aux9=p_33;
+                           p_11=aux2;
+                           p_12=aux1;
+                           p_13=aux9;
+                           p_21=aux8;
+                           p_22=aux7;
+                           p_23=aux6;
+                           p_31=aux5;
+                           p_32=aux4;
+                           p_33=aux3;
+                        }
+
+                    printf("\n\n");
+                    printf(" %d | %d | %d\n", p_11, p_12, p_13);
+                    printf("---+---+---\n");
+                    printf(" %d | %d | %d\n", p_21, p_22, p_23);
+                    printf("---+---+---\n");
+                    printf(" %d | %d | %d\n", p_31, p_32, p_33);
+
+		 	/*ANÁLISE DOS GANHADORES*/
+
+                    if(p_11==1 && p_22==1 && p_33==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a diagonal principal!\n");
+                    }
+
+                    if(p_11==1 && p_21==1 && p_31==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a 1a coluna!\n");
+                    }
+
+                    if(p_12==1 && p_22==1 && p_32==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a 2a coluna!\n");
+                    }
+
+                    if(p_13==1 && p_23==1 && p_33==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a 3a coluna!\n");
+                    }
+
+                    if(p_11==1 && p_12==1 && p_13==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a 1a linha!\n");
+                    }
+
+                    if(p_21==1 && p_22==1 && p_23==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a 2a linha!\n");
+                    }
+
+                    if(p_31==1 && p_32==1 && p_33==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a 3a linha!\n");
+                    }
+
+                    if(p_13==1 && p_22==1 && p_31==1)
+                    {
+                        ganhador_1=1;
+                        printf("\nJogador 1 completou a diagonal secundaria!\n");
+                    }
+
+                    if(p_11==2 && p_22==2 && p_33==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a diagonal principal!\n");
+                    }
+
+                    if(p_11==2 && p_21==2 && p_31==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a 1a coluna!\n");
+                    }
+
+                    if(p_12==2 && p_22==2 && p_32==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a 2a coluna!\n");
+                    }
+
+                    if(p_13==2 && p_23==2 && p_33==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a 3a coluna!\n");
+                    }
+
+                    if(p_11==2 && p_12==2 && p_13==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a 1a linha!\n");
+                    }
+
+                    if(p_21==2 && p_22==2 && p_23==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a 2a linha!\n");
+                    }
+
+                    if(p_31==2 && p_32==2 && p_33==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a 3a linha!\n");
+                    }
+
+                    if(p_13==2 && p_22==2 && p_31==2)
+                    {
+                        ganhador_2=2;
+                        printf("\nJogador 2 completou a diagonal secundaria!\n");
+                    }
+
+                    ganhador_final=ganhador_1+ganhador_2;
+
+                    if(ganhador_final==3)
+                        printf("\nOs dois ganharam!\n");
+
+                    if(ganhador_final==0 && p_11!=0 &&p_12!=0&&p_13!=0&&p_21!=0&&p_22!=0&&p_23!=0&&p_31!=0&&p_32!=0&&p_33!=0)
+                        printf("\nDeu empate!\n");
+
+		       }
+
+		     printf("\n\n");
+             printf(" %d | %d | %d\n", p_11, p_12, p_13);
+             printf("---+---+---\n");
+             printf(" %d | %d | %d\n", p_21, p_22, p_23);
+             printf("---+---+---\n");
+             printf(" %d | %d | %d\n", p_31, p_32, p_33);
+
+
+            /* fim do laço for*/
+
+return 0;
+}
