@@ -1,1 +1,1 @@
-"Learning-curve"
+This repository contains some exercises using C.
