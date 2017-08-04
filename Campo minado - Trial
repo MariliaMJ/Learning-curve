@@ -1,11 +1,4 @@
-/*******************************************************************/
-/**                                                               **/
-/**  MAC0110 - Introducao a Computacao - IME - 2013               **/    
-/**  Nome do aluno :Marília Muraro Janizelli                      **/
-/**  Numero USP : 7275730              Curso :Aplicada            **/
-/**  Exercicio-Programa 04                                        **/
-/**                                                               **/
-/*******************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h> /* para usar a funcao exit */
 
